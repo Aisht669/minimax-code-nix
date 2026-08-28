@@ -2,7 +2,16 @@
 
 非官方 [Nix](https://nixos.org/) 打包,让 [MiniMax Code](https://agent.minimax.io) 能在 NixOS 上跑。
 
-底层从 [unfallenwill/minimax-code-linux](https://github.com/unfallenwill/minimax-code-linux) 的预编译 `.deb` 拆出 Electron payload,套上 `buildFHSEnv`(bubblewrap 后端)重新打。不用改 `/usr`,也不依赖 setuid。
+## 🙏 基于 [unfallenwill/minimax-code-linux](https://github.com/unfallenwill/minimax-code-linux)
+
+所有难活 —— 把 macOS `.dmg` 拆开、跨平台 Electron runtime 对接、原生模块 rebuild —— 都是 [unfallenwill](https://github.com/unfallenwill) 在那个仓库里干的。本仓库只是把 upstream 出的 `.deb` 套上 `buildFHSEnv` 重新打进 Nix store,**没有 unfallenwill 的 upstream 工作,这个仓库根本不存在**。
+
+## 工作原理(2 句话)
+
+1. 从 [unfallenwill/minimax-code-linux](https://github.com/unfallenwill/minimax-code-linux) 的 GitHub Release 拉 `.deb`
+2. 拆开,用 `buildFHSEnv`(bubblewrap 后端)装进 FHS 沙箱,加 Wayland / XDG / scheme handler 处理,输出一个 Nix-native 包
+
+不用改 `/usr`,不依赖 setuid,纯 declarative。
 
 ## ⚠️ 非官方 / 法律
 
@@ -104,3 +113,9 @@ nix-prefetch-url --type sha256 \
 
 - 打包代码:MIT — [LICENSE](./LICENSE)
 - MiniMax Code 本身:© MiniMax,专有 — [NOTICE.md](./NOTICE.md)
+
+## Credits
+
+- **[unfallenwill/minimax-code-linux](https://github.com/unfallenwill/minimax-code-linux)** — upstream Linux 打包流水线,本仓库 100% 依赖其发布的 `.deb`
+- **[MiniMax](https://agent.minimax.io)** — MiniMax Code 本身
+- **[NixOS](https://nixos.org/)** — Nix / NixOS / `buildFHSEnv`

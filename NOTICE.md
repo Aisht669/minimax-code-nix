@@ -17,3 +17,13 @@ identification only.
 
 This repository is **not** affiliated with, endorsed by, or sponsored by
 MiniMax. For the official product, see https://agent.minimax.io.
+
+## Credits
+
+All of the actual packaging work — extracting the macOS `.dmg`,
+matching the Linux Electron runtime, rebuilding native addons — is done
+by [unfallenwill](https://github.com/unfallenwill) in
+[unfallenwill/minimax-code-linux](https://github.com/unfallenwill/minimax-code-linux).
+This Nix packaging only consumes the `.deb` artifacts published from
+that repository; without unfallenwill's work, this repository would not
+exist.

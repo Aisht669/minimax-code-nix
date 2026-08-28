@@ -2,12 +2,17 @@
 #
 # MiniMax Code 的非官方 Nix 打包。
 #
-# 来源:把 unfallenwill/minimax-code-linux 发布的 .deb 拆开,
-#       用 buildFHSEnv(bubblewrap 后端)重新装进 FHS 沙箱,
-#       在 NixOS 上能跑,不用碰 /usr,也不用 setuid store 文件。
+# 致谢:所有原生的打包工作(macOS .dmg 拆包、Linux Electron 运行时对接、
+#      原生模块 rebuild、GitHub Actions 自动发布 .deb)都是
+#      [unfallenwill](https://github.com/unfallenwill) 在
+#      [unfallenwill/minimax-code-linux](https://github.com/unfallenwill/minimax-code-linux)
+#      完成的。本仓库只是套了个 Nix 壳,消耗 upstream 发布的 .deb。
+#
+# 工作:fetchurl .deb → dpkg-deb -x → buildFHSEnv(bubblewrap) +
+#      Wayland/Ozone + Nix-native .desktop。
 #
 # 协议:本打包代码 MIT。MiniMax Code 自身 © MiniMax,专有。
-#      详见 NOTICE.md。
+#      详见 LICENSE / NOTICE.md。
 
 {
   lib,
@@ -148,10 +153,20 @@ symlinkJoin {
       setuid bits.
 
       Upstream: https://github.com/unfallenwill/minimax-code-linux
+      (All credit for the actual cross-platform packaging goes to
+      unfallenwill.)
     '';
     homepage = "https://github.com/unfallenwill/minimax-code-linux";
     license = lib.licenses.unfree;
     platforms = [ "x86_64-linux" ];
     mainProgram = "minimax-code";
+    maintainers = [
+      # Nix packaging only; the .deb artifact itself comes from
+      # unfallenwill/minimax-code-linux.
+      {
+        name = "Aisht";
+        github = "Aisht669";
+      }
+    ];
   };
 }
