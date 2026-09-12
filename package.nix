@@ -63,11 +63,11 @@
 }:
 
 let
-  version = "3.0.67";
+  version = "3.0.71";
 
   src = fetchurl {
     url = "https://github.com/unfallenwill/minimax-code-linux/releases/download/minimax-code-v${version}/minimax-code_${version}_amd64.deb";
-    sha256 = "sha256-jqMyrcO3ZxauRq7gQMmhPkzu87IMJLaY9AXmkKhuTb0=";
+    sha256 = "sha256-1JMee3GMEr17dGz4LuVnNTEoxWqNUd+6bLcycGdnu3c=";
   };
 
   # 拆 .deb:opt/ 给 fhsenv 用,usr/ 后面给桌面集成用
